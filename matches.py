@@ -110,6 +110,11 @@ def can_win_now():
         print("I removed %d match(es) from row %d." % (match_rows[big_row]-1, big_row))
         match_rows[big_row] = 1
         return True
+    #if three rows are empty and one row has more than one, take all but one 
+    if zero_counts == 3:
+        print("I removed %d match(es) from row %d." % (match_rows[big_row]-1, big_row))
+        match_rows[big_row] = 1
+        return True
     
     return False
     
