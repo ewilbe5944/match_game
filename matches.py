@@ -31,7 +31,7 @@ import time
 pygame.init()
 
 # Window
-SIZE = (800, 600)
+SIZE = (500, 500)
 TITLE = "Nim Game"
 screen = pygame.display.set_mode(SIZE)
 pygame.display.set_caption(TITLE)
@@ -42,12 +42,13 @@ refresh_rate = 30
 
 # Colors
 GREEN = (33, 124, 62)
+DARK_GREEN = (20, 70, 30)
 
 DARK_RED = (102, 0, 0)
 LIGHT_RED = (120, 0, 0)
 LIGHTEST_RED = (150, 0, 0)
 
-DARK_STICK = (150, 126, 55)
+DARK_STICK = (150, 116, 45)
 LIGHT_STICK = (216, 181, 75)
 
 
@@ -59,9 +60,14 @@ match_rows = [1, 3, 5, 7]
 def draw_match(loc):
     x = loc[0]
     y = loc[1]
-    
+
+    #shadow
+    pygame.draw.ellipse(screen, DARK_GREEN, [x+2, y-3, 20, 40], 0)
+    pygame.draw.polygon(screen, DARK_GREEN, [[x+10, y+5], [x+13, y+5], [x+13, y+94], [x+10, y+87]], 0)
+    #stick
     pygame.draw.rect(screen, LIGHT_STICK, [x+18, y+10, 5, 90], 0)
     pygame.draw.polygon(screen, DARK_STICK, [[x+15, y+10], [x+18, y+10], [x+18, y+99], [x+15, y+96]], 0)
+    #red part
     pygame.draw.ellipse(screen, DARK_RED, [x+9, y, 20, 40], 0)
     pygame.draw.ellipse(screen, LIGHT_RED, [x+14, y+2, 14, 29], 0)
     pygame.draw.ellipse(screen, LIGHTEST_RED, [x+17, y+7, 10, 15], 0)
@@ -156,7 +162,7 @@ def get_player_input():
         
         #if they try to take none or negative, then say no
         if match_count <= 0:
-            print("Can't pass!")
+            print("Can't skip your turn!")
             
         #if they try to take too many matches from a row that has matches,
         #tell player no
@@ -239,7 +245,7 @@ while not done:
 
     #see if player won
     if is_one_match_left():
-        print("you wins")
+        print("Darn! You won!")
         input("Press ENTER to end the game")
         done = True
         
@@ -251,7 +257,7 @@ while not done:
 
     #see if computer won
     if is_one_match_left():
-        print("me wins")
+        print("I won!")
         input("Press ENTER to end the game")
         done = True
 
